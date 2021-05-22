@@ -1,8 +1,5 @@
 use std::io::stdin;
 
-#[cfg(test)]
-mod tests;
-
 #[derive(Debug)]
 pub struct Question {
     text: String,
@@ -28,7 +25,7 @@ pub fn ask(quest: &Question) -> String {
     answer
 }
 
-pub fn validate_answer(answer: String, expected: String) -> bool {
+pub fn validate_answer(answer: &str, expected: &str) -> bool {
     let answer_is_correct = &answer.trim() == &expected.trim();
 
     if answer_is_correct {
