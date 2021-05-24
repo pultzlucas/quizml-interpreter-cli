@@ -6,7 +6,7 @@ fn main() {
     let quest2 = build_question("2) Qual a capital do Brasil?", "Brasília");
     let quest3 = build_question("3) Qual a cor do céu?", "azul");
 
-    show_result(vec![
+    let questions = vec![
         Answer {
             question: &quest1,
             answer: ask(&quest1),
@@ -19,5 +19,10 @@ fn main() {
             question: &quest3,
             answer: ask(&quest3),
         },
-    ])
+    ];
+
+    show_result(questions);
+
+    //let data = quiz::get_quiz_string("countries");
+    //println!("countries quiz data:\n{}", data);
 }
