@@ -1,8 +1,8 @@
 mod quiz;
-use quiz::{ask, build_question, show_result, Answer};
+use quiz::{get_quiz_questions, show_result};
 
 fn main() {
-    let quest1 = build_question("1) Qual o resultado da soma entre 50 e 51?", "101");
+ /*    let quest1 = build_question("1) Qual o resultado da soma entre 50 e 51?", "101");
     let quest2 = build_question("2) Qual a capital do Brasil?", "Brasília");
     let quest3 = build_question("3) Qual a cor do céu?", "azul");
 
@@ -19,7 +19,10 @@ fn main() {
             question: &quest3,
             answer: ask(&quest3),
         },
-    ];
+    ]; */
 
+    //show_result(questions);
+    let questions = get_quiz_questions("countries");
     show_result(questions);
+
 }

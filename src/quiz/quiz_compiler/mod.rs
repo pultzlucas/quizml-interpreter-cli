@@ -8,8 +8,8 @@ mod tests;
 #[derive(Debug)]
 #[derive(PartialEq)]
 pub struct Question {
-    text: String,
-    expected: String,
+    pub text: String,
+    pub expected: String,
 }
 
 pub fn get_quiz_questions(name: &str) -> Vec<Question> {
@@ -26,18 +26,6 @@ pub fn get_quiz_questions(name: &str) -> Vec<Question> {
     }
 
     questions
-}
-
-fn get_value(line: &str) -> String {
-    let regex = Regex::new(r"(<- *|-> *)").unwrap();
-    let capture = match regex.captures(line) {
-        Some(caps) => String::from(&caps[0]),
-        None => String::from(line),
-    };
-
-    let value = line.replace(capture.as_str(), "");
-
-    value
 }
 
 fn split_questions_string(file_string: String) -> Vec<String> {
