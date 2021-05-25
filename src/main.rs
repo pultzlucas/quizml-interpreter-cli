@@ -22,7 +22,4 @@ fn main() {
     ];
 
     show_result(questions);
-
-    //let data = quiz::get_quiz_string("countries");
-    //println!("countries quiz data:\n{}", data);
 }
