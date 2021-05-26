@@ -1,7 +1,7 @@
 use super::*;
 
 #[test]
-//#[ignore]
+#[ignore]
 fn test_get_questions_string() {
     assert_eq!(
         get_quiz_questions("test2"),
@@ -54,11 +54,11 @@ pub fn test_fs() {
 }
 
 #[test]
-#[ignore]
+//#[ignore]
 pub fn test_fs2() {
     assert_eq!(
         get_file_string("test2"),
-        "(->tester2<-123),(->blabla<-albalblab)"
+        "(->tester2 testando<-123),(->blabla<-albalblab)"
     )
 }
 
@@ -68,8 +68,3 @@ pub fn test_format_file_string() {
     assert_eq!(remove_spaces(String::from(" _oi \no\r")), "_oio")
 }
 
-#[test]
-#[ignore]
-pub fn test_value_regex() {
-    assert_eq!(get_value("->   test_operator"), "test_operator")
-}

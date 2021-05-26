@@ -5,8 +5,7 @@ use regex::Regex;
 #[cfg(test)]
 mod tests;
 
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct Question {
     pub text: String,
     pub expected: String,
@@ -21,7 +20,7 @@ pub fn get_quiz_questions(name: &str) -> Vec<Question> {
     for (text, expected) in questions_tuple_vec.iter() {
         questions.push(Question {
             text: String::from(text),
-            expected: String::from(expected)
+            expected: String::from(expected),
         })
     }
 
@@ -41,10 +40,9 @@ fn get_question_string_tuple(question_strings: Vec<String>) -> Vec<(String, Stri
     for qs in question_strings.iter() {
         let regex = Regex::new(r"(?P<text>[^->]+)<-(?P<expected>[^<-]+)\)").unwrap();
         let captures = regex.captures(qs.as_str()).expect("Interpretation error");
-
         tup_array.push((
-            String::from(&captures["text"]),
-            String::from(&captures["expected"]),
+            String::from(captures["text"].trim()),
+            String::from(captures["expected"].trim()),
         ));
     }
 
@@ -59,8 +57,8 @@ fn get_file_string(name: &str) -> String {
 }
 
 fn remove_spaces(file_string: String) -> String {
-    let regex = Regex::new(r"\S").unwrap();
+    let regex = Regex::new(r"\n|\t|\r").unwrap();
     let mut string = file_string;
-    string.retain(|c| regex.is_match(String::from(c).as_str()));
+    string.retain(|c| !regex.is_match(String::from(c).as_str()));
     string
 }
