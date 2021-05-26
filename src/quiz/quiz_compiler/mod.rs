@@ -11,8 +11,8 @@ pub struct Question {
     pub expected: String,
 }
 
-pub fn get_quiz_questions(name: &str) -> Vec<Question> {
-    let file_string = get_file_string(name);
+pub fn get_quiz_questions(file_name: &str) -> Vec<Question> {
+    let file_string = get_file_string(file_name);
     let questions_string = split_questions_string(file_string);
     let questions_tuple_vec = get_question_string_tuple(questions_string);
 
@@ -49,10 +49,8 @@ fn get_question_string_tuple(question_strings: Vec<String>) -> Vec<(String, Stri
     tup_array
 }
 
-fn get_file_string(name: &str) -> String {
-    let base_path = "./src/quizes/";
-    let file_path = format!("{}/{}.quiz", base_path, name);
-    let data = fs::read_to_string(file_path).unwrap();
+fn get_file_string(file_name: &str) -> String {
+    let data = fs::read_to_string(file_name).expect("Error when read quiz file");
     remove_spaces(data)
 }
 
