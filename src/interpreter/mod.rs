@@ -2,14 +2,13 @@ use std::fs;
 extern crate regex;
 use regex::Regex;
 
+mod output;
+pub use output::show_result;
+use output::Question;
+
+
 #[cfg(test)]
 mod tests;
-
-#[derive(Debug, PartialEq)]
-pub struct Question {
-    pub text: String,
-    pub expected: String,
-}
 
 pub fn get_quiz_questions(file_name: &str) -> Vec<Question> {
     let file_string = get_file_string(file_name);

@@ -1,15 +1,15 @@
-pub mod interpreter;
 use std::io::stdin;
 
-pub use interpreter::{get_quiz_questions, Question};
-
-mod validator;
-use validator::validate_answer;
+#[derive(Debug, PartialEq)]
+pub struct Question {
+    pub text: String,
+    pub expected: String,
+}
 
 #[derive(Debug)]
-pub struct Answer<'a> {
-    pub question: &'a Question,
-    pub answer: String,
+struct Answer<'a> {
+    question: &'a Question,
+    answer: String,
 }
 
 pub fn show_result(questions: Vec<Question>) {
@@ -32,7 +32,7 @@ pub fn show_result(questions: Vec<Question>) {
 }
 
 
-pub fn ask(quest: &Question) -> String {
+fn ask(quest: &Question) -> String {
     println!("{}", quest.text);
 
     let mut answer = String::new();
@@ -42,4 +42,16 @@ pub fn ask(quest: &Question) -> String {
     }
 
     answer
+}
+
+fn validate_answer(answer: &str, expected: &str) -> bool {
+    let answer_is_correct = &answer.trim() == &expected.trim();
+
+    if answer_is_correct {
+        print!("Correto: {}", answer);
+    } else {
+        print!("Incorreto: {}", answer);
+    }
+
+    answer_is_correct
 }

@@ -1,5 +1,5 @@
-mod quiz;
-use quiz::{get_quiz_questions, show_result};
+mod interpreter;
+use interpreter::{get_quiz_questions, show_result};
 use std::{env, path::Path};
 
 fn main() {
