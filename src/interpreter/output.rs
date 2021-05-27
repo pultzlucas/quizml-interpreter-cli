@@ -13,24 +13,26 @@ struct Answer<'a> {
 }
 
 pub fn show_result(questions: Vec<Question>) {
-    
-    let mut answers: Vec<Answer> = vec![];
-    
-    for q in questions.iter() {
-        let answer = ask(&q);
-        
-        answers.push(Answer {
-            question: q,
-            answer: answer
-        })
-    }
-    
+    let answers = get_answers(&questions);
+
     println!("\n---- Resultado ----");
-    for answer in answers {
+    for answer in answers.iter() {
         validate_answer(&answer.answer, &answer.question.expected);
     }
 }
 
+fn get_answers<'a>(questions: &Vec<Question>) -> Vec<Answer> {
+    let mut answers: Vec<Answer> = vec![];
+
+    for q in questions.iter() {
+        answers.push(Answer {
+            question: q,
+            answer: ask(&q),
+        })
+    }
+
+    answers
+}
 
 fn ask(quest: &Question) -> String {
     println!("{}", quest.text);
