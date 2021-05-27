@@ -1,7 +1,7 @@
-pub mod quiz_compiler;
+pub mod interpreter;
 use std::io::stdin;
 
-pub use quiz_compiler::{get_quiz_questions, Question};
+pub use interpreter::{get_quiz_questions, Question};
 
 mod validator;
 use validator::validate_answer;
