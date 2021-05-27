@@ -29,6 +29,7 @@ pub fn get_quiz_questions(file_name: &str) -> Vec<Question> {
 fn split_questions_string(file_string: String) -> Vec<String> {
     file_string
         .split(",")
+        .filter(|string| *string != "")
         .map(|string| String::from(string))
         .collect()
 }
