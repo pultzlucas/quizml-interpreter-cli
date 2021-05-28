@@ -1,16 +1,21 @@
 use std::fs;
 extern crate regex;
-use regex::Regex;
-
 mod output;
-pub use output::show_result;
+
+use regex::Regex;
+use output::show_result;
 use output::Question;
 
 
 #[cfg(test)]
 mod tests;
 
-pub fn get_quiz_questions(file_name: &str) -> Vec<Question> {
+pub fn execute_quiz(file_name: &str){
+    let questions = get_quiz_questions(file_name);
+    show_result(questions);
+}
+
+fn get_quiz_questions(file_name: &str) -> Vec<Question> {
     let file_string = get_file_string(file_name);
     let questions_string = split_questions_string(file_string);
     let questions_tuple_vec = get_question_string_tuple(questions_string);

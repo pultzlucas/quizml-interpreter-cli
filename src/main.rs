@@ -1,5 +1,5 @@
 mod interpreter;
-use interpreter::{get_quiz_questions, show_result};
+use interpreter::execute_quiz;
 use std::{env, path::Path};
 
 fn main() {
@@ -16,8 +16,7 @@ fn main() {
         Ok(s) => s,
     };
 
-    let questions = get_quiz_questions(quiz_file_path.as_str());
-    show_result(questions);
+    execute_quiz(quiz_file_path.as_str())
 }
 
 fn get_quiz_file_path(filename: &String) -> Result<String, String> {
