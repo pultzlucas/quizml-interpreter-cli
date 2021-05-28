@@ -1,3 +1,6 @@
+extern crate colored;
+
+use colored::Colorize;
 use std::io::stdin;
 
 #[derive(Debug, PartialEq)]
@@ -14,8 +17,8 @@ struct Answer<'a> {
 
 pub fn show_result(questions: Vec<Question>) {
     let answers = get_answers(&questions);
-
     println!("\n---- Resultado ----");
+    
     for answer in answers.iter() {
         validate_answer(&answer.answer, &answer.question.expected);
     }
@@ -46,14 +49,18 @@ fn ask(quest: &Question) -> String {
     answer
 }
 
-fn validate_answer(answer: &str, expected: &str) -> bool {
+fn validate_answer(answer: &str, expected: &str) {
     let answer_is_correct = &answer.trim() == &expected.trim();
 
-    if answer_is_correct {
-        print!("Correto: {}", answer);
-    } else {
-        print!("Incorreto: {}", answer);
+    match answer_is_correct {
+        true => print_correct_res(answer),
+        false => print_incorrect_res(answer)
     }
+}
 
-    answer_is_correct
+fn print_correct_res(answer: &str) {
+    println!("Correto:   {} {}", answer.trim(), "v".green());
+}
+fn print_incorrect_res(answer: &str) {
+    println!("Incorreto: {} {}", answer.trim(), "x".red());
 }
