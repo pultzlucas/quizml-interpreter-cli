@@ -1,6 +1,3 @@
-extern crate colored;
-
-use colored::Colorize;
 use std::io::stdin;
 
 #[derive(Debug, PartialEq)]
@@ -59,8 +56,8 @@ fn validate_answer(answer: &str, expected: &str) {
 }
 
 fn print_correct_res(answer: &str) {
-    println!("Correto:   {} {}", answer.trim(), "v".green());
+    println!("Correto:   {} {}", answer.trim(), "✔");
 }
 fn print_incorrect_res(answer: &str) {
-    println!("Incorreto: {} {}", answer.trim(), "x".red());
+    println!("Incorreto: {} {}", answer.trim(), "✖");
 }
