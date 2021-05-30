@@ -1,4 +1,4 @@
-use std::io::stdin;
+use std::io::{stdin, stdout, Write};
 
 #[derive(Debug, PartialEq)]
 pub struct Question {
@@ -14,8 +14,7 @@ struct Answer<'a> {
 
 pub fn show_result(questions: Vec<Question>) {
     let answers = get_answers(&questions);
-    println!("\n---- Resultado ----");
-    
+    println!("---- Resultado ----");
     for answer in answers.iter() {
         validate_answer(&answer.answer, &answer.question.expected);
     }
@@ -24,24 +23,29 @@ pub fn show_result(questions: Vec<Question>) {
 fn get_answers<'a>(questions: &Vec<Question>) -> Vec<Answer> {
     let mut answers: Vec<Answer> = vec![];
 
-    for q in questions.iter() {
+    for i in 0..questions.len() {
         answers.push(Answer {
-            question: q,
-            answer: ask(&q),
+            question: &questions[i],
+            answer: ask(&questions[i], (i, questions.len())),
         })
     }
 
     answers
 }
 
-fn ask(quest: &Question) -> String {
-    println!("{}", quest.text);
+fn ask(quest: &Question, (question_i, total_i): (usize, usize)) -> String {
+    let question_counter = format!("[{}/{}]", question_i + 1, total_i);
+
+    println!("{} {}", question_counter, quest.text);
+    print!("R: ");
+    stdout().flush().unwrap();
 
     let mut answer = String::new();
-
     if let Err(e) = stdin().read_line(&mut answer) {
         println!("Oops! Something went wrong: {}", e);
     }
+
+    println!("");
 
     answer
 }
@@ -51,7 +55,7 @@ fn validate_answer(answer: &str, expected: &str) {
 
     match answer_is_correct {
         true => print_correct_res(answer),
-        false => print_incorrect_res(answer)
+        false => print_incorrect_res(answer),
     }
 }
 
