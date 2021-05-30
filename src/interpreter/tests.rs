@@ -54,7 +54,7 @@ pub fn test_fs() {
 }
 
 #[test]
-//#[ignore]
+#[ignore]
 pub fn test_fs2() {
     assert_eq!(
         get_file_string("test2"),

@@ -1,4 +1,6 @@
+mod creator;
 mod interpreter;
+use creator::create_quiz;
 use interpreter::execute_quiz;
 use std::{env, path::Path};
 
@@ -11,12 +13,25 @@ fn main() {
         return;
     }
 
-    let quiz_file_path = match get_quiz_file_path(&args[0]) {
-        Err(e) => return println!("{}", e),
-        Ok(s) => s,
-    };
-
-    execute_quiz(quiz_file_path.as_str())
+    match args[0].as_str() {
+        "--create" | "-c" => {
+            match create_quiz() {
+                Ok(o) => {
+                    println!("{}", o)
+                }
+                Err(e) => {
+                    println!("{}", e)
+                }
+            }
+        },
+        _ => {
+            let quiz_file_path = match get_quiz_file_path(&args[0]) {
+                Err(e) => return println!("{}", e),
+                Ok(s) => s,
+            };
+            execute_quiz(quiz_file_path.as_str());
+        }
+    }
 }
 
 fn get_quiz_file_path(filename: &String) -> Result<String, String> {
